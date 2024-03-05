@@ -7,7 +7,7 @@ export default function SearchBar({ onSubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let inputValue = inputRef.current.value;
+    const inputValue = inputRef.current.value;
 
     if (inputValue.trim() === "") {
       toast.error("Please enter text to search images", {

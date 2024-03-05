@@ -1,0 +1,10 @@
+.listOfImages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 0;
+}
+
+.listElement {
+  list-style: none;
+}
