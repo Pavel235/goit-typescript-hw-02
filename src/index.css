@@ -13,9 +13,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  padding: 0;
+  min-width: 100%;
+}
+
 img {
   height: 300px;
   width: 410px;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  margin: 0;
 }
 
 a {
@@ -28,10 +39,10 @@ a:hover {
 }
 
 body {
-  margin: 0;
   display: flex;
   min-width: 320px;
   min-height: 100vh;
+  margin: 0;
 }
 
 h1 {
@@ -41,7 +52,7 @@ h1 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -55,7 +66,7 @@ button:hover {
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: transparent;
 }
 
 @media (prefers-color-scheme: light) {

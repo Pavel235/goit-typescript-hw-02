@@ -1,0 +1,14 @@
+.buttonElement {
+  border: transparent;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: rgb(53, 53, 246);
+  transition: background-color 300ms ease-in-out;
+  color: white;
+  width: 200px;
+  height: 40px;
+}
+
+.buttonElement:hover {
+  background-color: blue;
+}

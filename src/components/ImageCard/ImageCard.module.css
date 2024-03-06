@@ -1,0 +1,8 @@
+.imgElement {
+  transition: transform 300ms ease-in-out;
+}
+
+.imgElement:hover {
+  transform: scale(1.035);
+  cursor: pointer;
+}

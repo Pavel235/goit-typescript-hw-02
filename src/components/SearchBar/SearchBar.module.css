@@ -1,0 +1,37 @@
+.headerElement {
+  display: flex;
+  width: 100%;
+  background-color: blue;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputElement {
+  width: 400px;
+  height: 35px;
+  align-items: center;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.inputElement:focus {
+  outline: transparent;
+}
+
+.buttonElement {
+  align-items: center;
+  margin-left: 10px;
+  background-color: white;
+  transition: background-color 300ms ease-in-out;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.buttonElement:hover {
+  background-color: rgb(251, 255, 0);
+}
