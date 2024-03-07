@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import SearchBar from "./components/SearchBar/SearchBar";
 import searchPhotos from "./images-api";
@@ -8,6 +8,8 @@ import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
 import Modal from "react-modal";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [photos, setPhotos] = useState([]);
@@ -17,6 +19,8 @@ function App() {
   const [error, setError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImageData, setSelectedImageData] = useState(null);
+  const [totalPages, setTotalPages] = useState(null);
+  const [isSearchCompleted, setIsSearchCompleted] = useState(false);
 
   useEffect(() => {
     Modal.setAppElement(document.getElementById("root"));
@@ -27,11 +31,13 @@ function App() {
       return;
     }
 
+    setIsSearchCompleted(false);
+
     async function getImages() {
       try {
         setIsLoading(true);
         setError(false);
-        const data = await searchPhotos(query, page);
+        const data = await searchPhotos(query, page, setTotalPages);
         setPhotos((prevPhotos) => {
           return [...prevPhotos, ...data];
         });
@@ -39,6 +45,7 @@ function App() {
         setError(true);
       } finally {
         setIsLoading(false);
+        setIsSearchCompleted(true);
       }
     }
 
@@ -49,7 +56,7 @@ function App() {
     if (page > 1 && !isLoading) {
       const screenHeight = window.innerHeight;
 
-      const scrollHeight = screenHeight * 0.93;
+      const scrollHeight = screenHeight * 0.88;
 
       window.scrollBy({
         top: scrollHeight,
@@ -57,6 +64,41 @@ function App() {
       });
     }
   }, [page, isLoading]);
+
+  useEffect(() => {
+    if (totalPages === 0 && isSearchCompleted) {
+      toast.info("Unfortunately, there are no photos for this request.", {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+
+    if (
+      totalPages !== null &&
+      page > totalPages &&
+      photos.length !== 0 &&
+      isSearchCompleted
+    ) {
+      toast.warn("Unfortunately, there are no more photos for this request.", {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+  }, [isSearchCompleted, page, totalPages, photos]);
 
   const getPhotos = (newQuery) => {
     if (newQuery === query && page === 1) {
@@ -88,8 +130,12 @@ function App() {
         <ImageGallery items={photos} onImageInfo={openModal} />
       )}
       {error && <ErrorMessage />}
-      {photos.length > 0 && !isLoading && (
-        <LoadMoreBtn handleClick={handlePages} />
+      {photos.length > 0 && !isLoading && !error && (
+        <LoadMoreBtn
+          handleClick={handlePages}
+          currentPage={page}
+          allPages={totalPages}
+        />
       )}
       {isLoading && <Loader />}
       <ImageModal
@@ -97,6 +143,7 @@ function App() {
         onRequestClose={closeModal}
         imageData={selectedImageData}
       />
+      <ToastContainer />
     </>
   );
 }
