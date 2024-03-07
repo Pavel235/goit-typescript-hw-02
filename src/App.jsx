@@ -92,9 +92,7 @@ function App() {
 
       setNoMoreNotifications(true);
     }
-  }, [page, isSearchCompleted, totalPages, photos, noMoreNotifications]);
 
-  useEffect(() => {
     if (page > 1 && !isLoading) {
       const screenHeight = window.innerHeight;
 
@@ -105,7 +103,14 @@ function App() {
         behavior: "smooth",
       });
     }
-  }, [page, isLoading]);
+  }, [
+    page,
+    isSearchCompleted,
+    totalPages,
+    photos,
+    noMoreNotifications,
+    isLoading,
+  ]);
 
   const getPhotos = (newQuery) => {
     if (newQuery === query && page === 1) {
