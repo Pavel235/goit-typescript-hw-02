@@ -1,5 +1,5 @@
 import Modal from "react-modal";
-import "./ImageModal.css";
+import styles from "./ImageModal.module.css";
 
 export default function ImageModal({ isOpen, onRequestClose, imageData }) {
   if (!imageData) {
@@ -14,15 +14,15 @@ export default function ImageModal({ isOpen, onRequestClose, imageData }) {
       onRequestClose={onRequestClose}
       shouldCloseOnEsc={true}
       shouldCloseOnOverlayClick={true}
-      className="modal-content"
-      overlayClassName="overlay"
+      className={styles.modalContent}
+      overlayClassName={styles.overlay}
       closeTimeoutMS={400}
     >
-      <img className="img-element" src={imageUrl} alt="modal-image" />
-      <div className="list-box">
-        <p className="text-element">Description: {description}</p>
-        <p className="text-element">Likes: {likes}</p>
-        {location && <p className="text-element">Location: {location}</p>}
+      <img className={styles.imgElement} src={imageUrl} alt="modal-image" />
+      <div className={styles.listBox}>
+        <p className={styles.textElement}>Description: {description}</p>
+        <p className={styles.textElement}>Likes: {likes}</p>
+        {location && <p className={styles.textElement}>Location: {location}</p>}
       </div>
     </Modal>
   );
