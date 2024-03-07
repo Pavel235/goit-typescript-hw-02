@@ -21,27 +21,24 @@ function App() {
   const [selectedImageData, setSelectedImageData] = useState(null);
   const [totalPages, setTotalPages] = useState(null);
   const [isSearchCompleted, setIsSearchCompleted] = useState(false);
+  const [noMoreNotifications, setNoMoreNotifications] = useState(false);
 
   useEffect(() => {
     Modal.setAppElement(document.getElementById("root"));
-  }, []);
 
-  useEffect(() => {
     if (query === "") {
       return;
     }
 
     setIsSearchCompleted(false);
 
+    setNoMoreNotifications(false);
+
     async function getImages() {
       try {
         setIsLoading(true);
         setError(false);
         const data = await searchPhotos(query, page, setTotalPages);
-
-        if (data.length === 0 && page === 1) {
-          setTotalPages(0);
-        }
 
         setPhotos((prevPhotos) => {
           return [...prevPhotos, ...data];
@@ -56,19 +53,6 @@ function App() {
 
     getImages();
   }, [query, page]);
-
-  useEffect(() => {
-    if (page > 1 && !isLoading) {
-      const screenHeight = window.innerHeight;
-
-      const scrollHeight = screenHeight * 0.88;
-
-      window.scrollBy({
-        top: scrollHeight,
-        behavior: "smooth",
-      });
-    }
-  }, [page, isLoading]);
 
   useEffect(() => {
     if (photos.length === 0 && totalPages === 0 && isSearchCompleted) {
@@ -91,7 +75,8 @@ function App() {
       totalPages !== null &&
       page > totalPages &&
       photos.length !== 0 &&
-      isSearchCompleted
+      isSearchCompleted &&
+      !noMoreNotifications
     ) {
       toast.warn("Unfortunately, there are no more photos for this request.", {
         position: "top-right",
@@ -104,8 +89,23 @@ function App() {
         theme: "light",
         transition: Bounce,
       });
+
+      setNoMoreNotifications(true);
     }
-  }, [isSearchCompleted, page, totalPages, photos]);
+  }, [page, isSearchCompleted, totalPages, photos, noMoreNotifications]);
+
+  useEffect(() => {
+    if (page > 1 && !isLoading) {
+      const screenHeight = window.innerHeight;
+
+      const scrollHeight = screenHeight * 0.88;
+
+      window.scrollBy({
+        top: scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [page, isLoading]);
 
   const getPhotos = (newQuery) => {
     if (newQuery === query && page === 1) {
