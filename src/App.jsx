@@ -38,6 +38,11 @@ function App() {
         setIsLoading(true);
         setError(false);
         const data = await searchPhotos(query, page, setTotalPages);
+
+        if (data.length === 0 && page === 1) {
+          setTotalPages(0);
+        }
+
         setPhotos((prevPhotos) => {
           return [...prevPhotos, ...data];
         });
@@ -66,7 +71,7 @@ function App() {
   }, [page, isLoading]);
 
   useEffect(() => {
-    if (totalPages === 0 && isSearchCompleted) {
+    if (photos.length === 0 && totalPages === 0 && isSearchCompleted) {
       toast.info("Unfortunately, there are no photos for this request.", {
         position: "top-right",
         autoClose: 4000,
@@ -78,6 +83,8 @@ function App() {
         theme: "light",
         transition: Bounce,
       });
+
+      setTotalPages(null);
     }
 
     if (
