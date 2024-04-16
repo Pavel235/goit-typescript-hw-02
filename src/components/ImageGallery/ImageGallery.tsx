@@ -1,7 +1,31 @@
 import ImageCard from "../ImageCard/ImageCard";
 import styles from "./ImageGallery.module.css";
 
-export default function ImageGallery({ items, onImageInfo }) {
+interface ImageItem {
+  id: number;
+  urls: {
+    regular: string;
+  };
+  alt_description: string;
+  likes: number;
+  user: {
+    location: string;
+  };
+}
+
+interface ImageData {
+  imageUrl: string;
+  description: string;
+  likes: number;
+  location: string;
+}
+
+interface Props {
+  items: ImageItem[];
+  onImageInfo: (data: ImageData) => void;
+}
+
+const ImageGallery: React.FC<Props> = ({ items, onImageInfo }) => {
   return (
     <ul className={styles.listOfImages}>
       {items.map((item) => (
@@ -20,4 +44,6 @@ export default function ImageGallery({ items, onImageInfo }) {
       ))}
     </ul>
   );
-}
+};
+
+export default ImageGallery;

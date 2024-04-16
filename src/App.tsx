@@ -24,7 +24,7 @@ function App() {
   const [noMoreNotifications, setNoMoreNotifications] = useState(false);
 
   useEffect(() => {
-    Modal.setAppElement(document.getElementById("root"));
+    Modal.setAppElement(document.getElementById("root") as HTMLElement);
 
     if (query === "") {
       return;

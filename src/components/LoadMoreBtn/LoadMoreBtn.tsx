@@ -1,6 +1,16 @@
 import styles from "./LoadMoreBtn.module.css";
 
-export default function LoadMoreBtn({ handleClick, currentPage, allPages }) {
+interface LoadMoreBtnProps {
+  handleClick: () => void;
+  currentPage: number;
+  allPages: number;
+}
+
+const LoadMoreBtn: React.FC<LoadMoreBtnProps> = ({
+  handleClick,
+  currentPage,
+  allPages,
+}) => {
   return (
     <button
       className={styles.buttonElement}
@@ -11,4 +21,6 @@ export default function LoadMoreBtn({ handleClick, currentPage, allPages }) {
       Load more
     </button>
   );
-}
+};
+
+export default LoadMoreBtn;
