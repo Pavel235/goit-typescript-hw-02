@@ -1,10 +1,5 @@
 import styles from "./LoadMoreBtn.module.css";
-
-interface LoadMoreBtnProps {
-  handleClick: () => void;
-  currentPage: number;
-  allPages: number;
-}
+import { LoadMoreBtnProps } from "./LoadMoreBtn.types";
 
 const LoadMoreBtn: React.FC<LoadMoreBtnProps> = ({
   handleClick,

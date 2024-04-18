@@ -1,10 +1,7 @@
 import { FormEvent, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import styles from "./SearchBar.module.css";
-
-interface SearchBarProps {
-  onSubmit: (query: string) => void;
-}
+import { SearchBarProps } from "./SearchBar.types";
 
 export default function SearchBar({ onSubmit }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);

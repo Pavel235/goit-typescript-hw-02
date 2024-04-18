@@ -1,22 +1,10 @@
 import Modal from "react-modal";
 import styles from "./ImageModal.module.css";
-
-interface ImageData {
-  imageUrl: string;
-  description: string;
-  likes: number;
-  location?: string;
-}
-
-interface Props {
-  isOpen: boolean;
-  onRequestClose: () => void;
-  imageData?: ImageData;
-}
+import { Props } from "./ImageModal.types";
 
 const ImageModal: React.FC<Props> = ({ isOpen, onRequestClose, imageData }) => {
   if (!imageData) {
-    return ;
+    return;
   }
 
   const { imageUrl, description, likes, location } = imageData;

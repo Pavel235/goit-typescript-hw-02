@@ -1,27 +1,31 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import SearchBar from "./components/SearchBar/SearchBar";
-import searchPhotos from "./images-api";
-import ImageGallery from "./components/ImageGallery/ImageGallery";
-import Loader from "./components/Loader/Loader";
-import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
-import ImageModal from "./components/ImageModal/ImageModal";
+import SearchBar from "../SearchBar/SearchBar";
+import searchPhotos, { PhotoData } from "../../images-api";
+import ImageGallery from "../ImageGallery/ImageGallery";
+import Loader from "../Loader/Loader";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "../ImageModal/ImageModal";
 import Modal from "react-modal";
+import { ImageData } from "./App.types";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [photos, setPhotos] = useState([]);
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImageData, setSelectedImageData] = useState(null);
-  const [totalPages, setTotalPages] = useState(null);
-  const [isSearchCompleted, setIsSearchCompleted] = useState(false);
-  const [noMoreNotifications, setNoMoreNotifications] = useState(false);
+  const [photos, setPhotos] = useState<PhotoData[]>([]);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedImageData, setSelectedImageData] = useState<ImageData | null>(
+    null
+  );
+  const [totalPages, setTotalPages] = useState<number | null>(null);
+  const [isSearchCompleted, setIsSearchCompleted] = useState<boolean>(false);
+  const [noMoreNotifications, setNoMoreNotifications] =
+    useState<boolean>(false);
 
   useEffect(() => {
     Modal.setAppElement(document.getElementById("root") as HTMLElement);
@@ -112,7 +116,7 @@ function App() {
     isLoading,
   ]);
 
-  const getPhotos = (newQuery) => {
+  const getPhotos = (newQuery: string) => {
     if (newQuery === query && page === 1) {
       return;
     }
@@ -126,7 +130,7 @@ function App() {
     setPage(page + 1);
   };
 
-  const openModal = (imageData) => {
+  const openModal = (imageData: ImageData) => {
     setSelectedImageData(imageData);
     setIsModalOpen(true);
   };

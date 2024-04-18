@@ -1,29 +1,6 @@
 import ImageCard from "../ImageCard/ImageCard";
 import styles from "./ImageGallery.module.css";
-
-interface ImageItem {
-  id: number;
-  urls: {
-    regular: string;
-  };
-  alt_description: string;
-  likes: number;
-  user: {
-    location: string;
-  };
-}
-
-interface ImageData {
-  imageUrl: string;
-  description: string;
-  likes: number;
-  location: string;
-}
-
-interface Props {
-  items: ImageItem[];
-  onImageInfo: (data: ImageData) => void;
-}
+import { Props } from "./ImageGallery.types";
 
 const ImageGallery: React.FC<Props> = ({ items, onImageInfo }) => {
   return (

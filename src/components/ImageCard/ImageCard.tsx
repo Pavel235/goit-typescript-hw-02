@@ -1,25 +1,5 @@
 import styles from "./ImageCard.module.css";
-
-interface Image {
-  urls: {
-    small: string;
-  };
-
-  alt_description: string;
-}
-
-interface ImageData {
-  imageUrl: string;
-  description: string;
-  likes: number;
-  location: string;
-}
-
-interface Props {
-  image: Image;
-  onClick: (data: ImageData) => void;
-  imageData: ImageData;
-}
+import { Props } from "./ImageCard.types";
 
 const ImageCard: React.FC<Props> = ({ image, onClick, imageData }) => {
   const handleClick = () => {

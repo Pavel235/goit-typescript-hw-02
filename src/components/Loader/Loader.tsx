@@ -1,17 +1,6 @@
 import { RotatingLines } from "react-loader-spinner";
 import styles from "./Loader.module.css";
-
-interface Props {
-  visible: boolean;
-  height: string;
-  width: string;
-  color: string;
-  strokeWidth: string;
-  animationDuration: string;
-  ariaLabel: string;
-  wrapperStyle: React.CSSProperties;
-  wrapperClass: string;
-}
+import { Props } from "./Loader.types";
 
 const Loader: React.FC<Props> = ({
   visible,
