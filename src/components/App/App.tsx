@@ -8,6 +8,7 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "../ImageModal/ImageModal";
 import Modal from "react-modal";
+import { LoaderProps } from "../Loader/Loader.types";
 import { ImageData } from "./App.types";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,6 +27,18 @@ function App() {
   const [isSearchCompleted, setIsSearchCompleted] = useState<boolean>(false);
   const [noMoreNotifications, setNoMoreNotifications] =
     useState<boolean>(false);
+
+  const loaderProps: LoaderProps = {
+    visible: true,
+    height: "96",
+    width: "96",
+    color: "grey",
+    strokeWidth: "5",
+    animationDuration: "0.75",
+    ariaLabel: "rotating-lines-loading",
+    wrapperStyle: {},
+    wrapperClass: "styles.loaderElement",
+  };
 
   useEffect(() => {
     Modal.setAppElement(document.getElementById("root") as HTMLElement);
@@ -146,19 +159,21 @@ function App() {
         <ImageGallery items={photos} onImageInfo={openModal} />
       )}
       {error && <ErrorMessage />}
-      {photos.length > 0 && !isLoading && !error && (
+      {photos.length > 0 && !isLoading && !error && totalPages !== null && (
         <LoadMoreBtn
           handleClick={handlePages}
           currentPage={page}
           allPages={totalPages}
         />
       )}
-      {isLoading && <Loader />}
-      <ImageModal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        imageData={selectedImageData}
-      />
+      {isLoading && <Loader {...loaderProps}/>}
+      {selectedImageData !== null && (
+        <ImageModal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          imageData={selectedImageData}
+        />
+      )}
       <ToastContainer />
     </>
   );

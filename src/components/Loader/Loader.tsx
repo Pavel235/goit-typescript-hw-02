@@ -1,28 +1,15 @@
 import { RotatingLines } from "react-loader-spinner";
 import styles from "./Loader.module.css";
-import { Props } from "./Loader.types";
+import { LoaderProps } from "./Loader.types";
 
-const Loader: React.FC<Props> = ({
+const Loader = <Props extends LoaderProps>({
   visible,
-  height,
-  width,
-  color,
-  strokeWidth,
-  animationDuration,
-  ariaLabel,
-  wrapperStyle,
-  wrapperClass,
-}) => {
+  ...rest
+}: Props): JSX.Element => {
   return (
     <RotatingLines
       visible={true}
-      height="96"
-      width="96"
-      color="grey"
-      strokeWidth="5"
-      animationDuration="0.75"
-      ariaLabel="rotating-lines-loading"
-      wrapperStyle={{}}
+      {...rest}
       wrapperClass={styles.loaderElement}
     />
   );

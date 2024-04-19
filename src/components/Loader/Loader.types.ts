@@ -1,4 +1,4 @@
-export interface Props {
+export interface LoaderProps {
   visible: boolean;
   height: string;
   width: string;
